@@ -12,8 +12,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE Employee e SET e.firstName=?1, e.lastName=?2, e.status=?3 WHERE e.id = ?4")
-	void updateEmployeeById(String firstname, String lastname, boolean status, int id);
+	@Query("UPDATE Employee e SET e.firstName=?2, e.lastName=?3, e.status=?4 WHERE e.id = ?1")
+	void updateEmployeeById(int id, String firstname, String lastname, boolean status);
 	
 	@Query("SELECT e FROM Employee e WHERE e.status=1")
 	List<Employee> getActiveEmployees();

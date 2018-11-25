@@ -28,8 +28,7 @@ public class Employee implements Serializable {
     
     protected Employee() {}
 
-    public Employee(int id, String firstName, String lastName, boolean status) {
-    	this.id = id;
+    public Employee(String firstName, String lastName, boolean status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.status = status;
@@ -69,12 +68,9 @@ public class Employee implements Serializable {
 
 	@Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName=" + lastName +
-                ", status=" + status +
-                '}';
+		return String.format(
+                "Employee[id=%d, firstName='%s', lastName='%s', status='%s']",
+                id, firstName, lastName, status);
     }
  
 }

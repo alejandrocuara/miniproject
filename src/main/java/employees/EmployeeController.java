@@ -3,8 +3,6 @@ package employees;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +17,7 @@ public class EmployeeController {
 	EmployeeRepository repository;
 	
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
-	public Employee createEmployee(@RequestBody @Valid Employee employee) {
+	public Employee createEmployee(@RequestBody Employee employee) {
 	
 		return repository.save(employee);
     }
@@ -39,17 +37,21 @@ public class EmployeeController {
 		return repository.getEmployeeByIdAndActive(id);
     }
 	
-	@RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
-	public void deleteEmployeeById(@PathVariable(value = "id") int id) {
-	
-		repository.deleteById(id);
+	@RequestMapping(value = "/employee/{id}/{pwd}", method = RequestMethod.DELETE)
+	public void deleteEmployeeById(@PathVariable(value = "id") int id,
+			@PathVariable(value = "pwd") String pwd) {
+		
+		if(pwd.equals("abc")) {
+			repository.deleteById(id);
+		}
     }
 	
 	@RequestMapping(value = "/employee/{id}", method = RequestMethod.PUT)
 	public void updateEmployeeById(@PathVariable(value = "id") int id,
     					@RequestBody Employee employee) {
 		
-		repository.updateEmployeeById(employee.getFirstName(), employee.getLastName(), employee.isStatus(), id);
+		repository.updateEmployeeById(id, employee.getFirstName(), employee.getLastName(), 
+				employee.isStatus());
     }
 
 }
